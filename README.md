@@ -1,73 +1,110 @@
-# Welcome to your Lovable project
+# C Trato Hecho Bienes Raíces
 
-## Project info
+## 🏠 Propósito
+Catálogo moderno de propiedades en renta y venta en Querétaro, México. Plataforma escalable y profesional diseñada para conectar a compradores e inquilinos con las mejores oportunidades inmobiliarias.
 
-**URL**: https://lovable.dev/projects/46c29010-31d5-4ea3-aef3-3e70b134dbc5
+## 🚀 Stack Tecnológico
+- **Frontend**: React 18 + Vite + TypeScript
+- **Estilos**: TailwindCSS + shadcn/ui
+- **Routing**: React Router v6
+- **Forms**: React Hook Form + Zod
+- **Base de datos** (futuro): Supabase
+- **CMS** (futuro): Strapi
+- **Hosting**: Lovable / Vercel
 
-## How can I edit this code?
+## ✨ Características
+- ✅ Catálogo de propiedades con imágenes profesionales
+- ✅ Buscador avanzado con filtros (tipo, operación, ubicación, precio)
+- ✅ Páginas de detalle completas con galería
+- ✅ Formulario de contacto validado
+- ✅ Diseño responsive y moderno
+- ✅ SEO optimizado
+- ✅ Integración con WhatsApp para contacto directo
+- ⏳ Panel de administración (en desarrollo)
+- ⏳ Conexión con Supabase (pendiente)
+- ⏳ Integración con Strapi CMS (pendiente)
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/46c29010-31d5-4ea3-aef3-3e70b134dbc5) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## 📦 Instalación
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clonar el repositorio
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navegar al directorio
+cd c-trato-hecho
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Instalar dependencias
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Iniciar servidor de desarrollo
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 🔐 Variables de entorno
+Crea un archivo `.env` en la raíz del proyecto (cuando conectes Supabase):
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```env
+VITE_SUPABASE_URL=tu_supabase_url
+VITE_SUPABASE_ANON_KEY=tu_supabase_anon_key
+```
 
-**Use GitHub Codespaces**
+## 📂 Estructura del proyecto
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├─ components/
+│   ├─ Navbar.tsx              # Navegación principal
+│   ├─ SearchBar.tsx           # Buscador de propiedades
+│   ├─ PropertyCard.tsx        # Tarjeta de propiedad
+│   ├─ PropertyList.tsx        # Lista de propiedades
+│   ├─ PropertyDetail.tsx      # Detalle de propiedad
+│   ├─ ContactForm.tsx         # Formulario de contacto
+│   └─ Footer.tsx              # Pie de página
+├─ pages/
+│   ├─ Home.tsx                # Página principal
+│   ├─ Propiedades.tsx         # Catálogo completo
+│   ├─ PropiedadDetalle.tsx    # Detalle individual
+│   ├─ Contacto.tsx            # Página de contacto
+│   └─ Admin.tsx               # Panel admin (placeholder)
+├─ lib/
+│   └─ supabaseClient.ts       # Cliente de Supabase
+├─ data/
+│   └─ mockProperties.json     # Datos de ejemplo
+└─ assets/                     # Imágenes generadas
+```
 
-## What technologies are used for this project?
+## 🎨 Personalización
+El diseño utiliza un sistema de tokens semánticos definido en:
+- `src/index.css` - Variables CSS personalizadas
+- `tailwind.config.ts` - Configuración de Tailwind
 
-This project is built with:
+Colores principales:
+- Primary: Verde esmeralda profesional
+- Secondary: Verde suave
+- Accent: Verde vibrante
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🗺️ Roadmap
+- [x] Diseño y estructura base
+- [x] Catálogo inicial con mock data
+- [x] Sistema de búsqueda y filtros
+- [x] Páginas de detalle
+- [x] Formulario de contacto
+- [ ] Integración con Supabase
+- [ ] Autenticación de usuarios
+- [ ] Panel de administración funcional
+- [ ] Conexión con Strapi CMS
+- [ ] Sistema de favoritos
+- [ ] Comparador de propiedades
+- [ ] Deploy en producción
 
-## How can I deploy this project?
+## 📱 Contacto
+- **Teléfono**: 442 170 3205
+- **Email**: jorge@ctratohecho.mx
+- **Ubicación**: Querétaro, México
 
-Simply open [Lovable](https://lovable.dev/projects/46c29010-31d5-4ea3-aef3-3e70b134dbc5) and click on Share -> Publish.
+## 📄 Licencia
+© 2025 C Trato Hecho Bienes Raíces. Todos los derechos reservados.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Desarrollado con ❤️ usando Lovable**
