@@ -16,11 +16,15 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       : `$${price.toLocaleString()}`;
   };
 
+  const imageUrl = property.imagenes && property.imagenes.length > 0 
+    ? property.imagenes[0] 
+    : "/images/placeholder.jpg";
+
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
-          src={property.imagenes[0]}
+          src={imageUrl}
           alt={property.titulo}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />

@@ -1,0 +1,354 @@
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { Loader2, Upload, X } from "lucide-react";
+import { z } from "zod";
+
+const propertySchema = z.object({
+  titulo: z.string().trim().min(1, "El título es requerido").max(200),
+  descripcion: z.string().trim().min(1, "La descripción es requerida").max(2000),
+  tipo: z.enum(["Casa", "Departamento", "Terreno"]),
+  operacion: z.enum(["Venta", "Renta"]),
+  precio: z.number().positive("El precio debe ser mayor a 0"),
+  ubicacion: z.string().trim().min(1, "La ubicación es requerida").max(200),
+  area: z.number().positive("El área debe ser mayor a 0"),
+  recamaras: z.number().int().min(0).optional(),
+  banos: z.number().int().min(0).optional(),
+});
+
+export const AdminPropertyForm = () => {
+  const [formData, setFormData] = useState({
+    titulo: "",
+    descripcion: "",
+    tipo: "",
+    operacion: "",
+    precio: "",
+    ubicacion: "",
+    area: "",
+    recamaras: "",
+    banos: "",
+    destacada: false,
+  });
+  const [images, setImages] = useState<File[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      if (files.length + images.length > 5) {
+        toast({
+          variant: "destructive",
+          title: "Máximo 5 imágenes",
+          description: "Puedes subir hasta 5 imágenes por propiedad",
+        });
+        return;
+      }
+      setImages([...images, ...files]);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
+
+  const uploadImages = async () => {
+    const uploadedUrls: string[] = [];
+
+    for (const image of images) {
+      const fileExt = image.name.split(".").pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("property-images")
+        .upload(filePath, image);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from("property-images")
+        .getPublicUrl(filePath);
+
+      uploadedUrls.push(data.publicUrl);
+    }
+
+    return uploadedUrls;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+
+    // Validate form
+    try {
+      propertySchema.parse({
+        titulo: formData.titulo,
+        descripcion: formData.descripcion,
+        tipo: formData.tipo,
+        operacion: formData.operacion,
+        precio: parseFloat(formData.precio),
+        ubicacion: formData.ubicacion,
+        area: parseFloat(formData.area),
+        recamaras: formData.recamaras ? parseInt(formData.recamaras) : undefined,
+        banos: formData.banos ? parseInt(formData.banos) : undefined,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          fieldErrors[err.path[0] as string] = err.message;
+        });
+        setErrors(fieldErrors);
+        return;
+      }
+    }
+
+    if (images.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Agrega al menos una imagen",
+      });
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      // Upload images
+      const imageUrls = await uploadImages();
+
+      // Insert property
+      const { error } = await supabase.from("properties").insert({
+        titulo: formData.titulo,
+        descripcion: formData.descripcion,
+        tipo: formData.tipo,
+        operacion: formData.operacion,
+        precio: parseFloat(formData.precio),
+        ubicacion: formData.ubicacion,
+        area: parseFloat(formData.area),
+        recamaras: formData.recamaras ? parseInt(formData.recamaras) : null,
+        banos: formData.banos ? parseInt(formData.banos) : null,
+        imagenes: imageUrls,
+        destacada: formData.destacada,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Propiedad creada",
+        description: "La propiedad se agregó correctamente",
+      });
+
+      // Reset form
+      setFormData({
+        titulo: "",
+        descripcion: "",
+        tipo: "",
+        operacion: "",
+        precio: "",
+        ubicacion: "",
+        area: "",
+        recamaras: "",
+        banos: "",
+        destacada: false,
+      });
+      setImages([]);
+
+      // Invalidate queries
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al crear propiedad",
+        description: error.message,
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="titulo">Título *</Label>
+          <Input
+            id="titulo"
+            value={formData.titulo}
+            onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
+            required
+          />
+          {errors.titulo && <p className="text-sm text-destructive">{errors.titulo}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="ubicacion">Ubicación *</Label>
+          <Input
+            id="ubicacion"
+            value={formData.ubicacion}
+            onChange={(e) => setFormData({ ...formData, ubicacion: e.target.value })}
+            required
+          />
+          {errors.ubicacion && <p className="text-sm text-destructive">{errors.ubicacion}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="tipo">Tipo *</Label>
+          <Select value={formData.tipo} onValueChange={(value) => setFormData({ ...formData, tipo: value })}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona tipo" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Casa">Casa</SelectItem>
+              <SelectItem value="Departamento">Departamento</SelectItem>
+              <SelectItem value="Terreno">Terreno</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors.tipo && <p className="text-sm text-destructive">{errors.tipo}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="operacion">Operación *</Label>
+          <Select value={formData.operacion} onValueChange={(value) => setFormData({ ...formData, operacion: value })}>
+            <SelectTrigger>
+              <SelectValue placeholder="Selecciona operación" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Venta">Venta</SelectItem>
+              <SelectItem value="Renta">Renta</SelectItem>
+            </SelectContent>
+          </Select>
+          {errors.operacion && <p className="text-sm text-destructive">{errors.operacion}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="precio">Precio *</Label>
+          <Input
+            id="precio"
+            type="number"
+            value={formData.precio}
+            onChange={(e) => setFormData({ ...formData, precio: e.target.value })}
+            required
+          />
+          {errors.precio && <p className="text-sm text-destructive">{errors.precio}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="area">Área (m²) *</Label>
+          <Input
+            id="area"
+            type="number"
+            value={formData.area}
+            onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+            required
+          />
+          {errors.area && <p className="text-sm text-destructive">{errors.area}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="recamaras">Recámaras</Label>
+          <Input
+            id="recamaras"
+            type="number"
+            value={formData.recamaras}
+            onChange={(e) => setFormData({ ...formData, recamaras: e.target.value })}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="banos">Baños</Label>
+          <Input
+            id="banos"
+            type="number"
+            value={formData.banos}
+            onChange={(e) => setFormData({ ...formData, banos: e.target.value })}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="descripcion">Descripción *</Label>
+        <Textarea
+          id="descripcion"
+          value={formData.descripcion}
+          onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
+          rows={4}
+          required
+        />
+        {errors.descripcion && <p className="text-sm text-destructive">{errors.descripcion}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <Label>Imágenes (Máximo 5) *</Label>
+        <div className="flex items-center gap-4">
+          <Button type="button" variant="outline" asChild>
+            <label className="cursor-pointer">
+              <Upload className="mr-2 h-4 w-4" />
+              Subir imágenes
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
+          </Button>
+          <span className="text-sm text-muted-foreground">
+            {images.length} imagen(es) seleccionada(s)
+          </span>
+        </div>
+
+        {images.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+            {images.map((image, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt={`Preview ${index}`}
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2"
+                  onClick={() => removeImage(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          id="destacada"
+          checked={formData.destacada}
+          onChange={(e) => setFormData({ ...formData, destacada: e.target.checked })}
+          className="h-4 w-4"
+        />
+        <Label htmlFor="destacada" className="cursor-pointer">
+          Destacar esta propiedad
+        </Label>
+      </div>
+
+      <Button type="submit" disabled={uploading} className="w-full">
+        {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {uploading ? "Creando propiedad..." : "Crear Propiedad"}
+      </Button>
+    </form>
+  );
+};

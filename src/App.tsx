@@ -8,6 +8,7 @@ import Propiedades from "./pages/Propiedades";
 import PropiedadDetalle from "./pages/PropiedadDetalle";
 import Contacto from "./pages/Contacto";
 import Admin from "./pages/Admin";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/propiedades" element={<Propiedades />} />
           <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

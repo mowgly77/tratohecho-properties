@@ -9,6 +9,10 @@ interface PropertyDetailProps {
 }
 
 const PropertyDetail = ({ property }: PropertyDetailProps) => {
+  const imageUrl = property.imagenes && property.imagenes.length > 0 
+    ? property.imagenes[0] 
+    : "/images/placeholder.jpg";
+
   const formatPrice = (price: number, operation: string) => {
     return operation === "Renta"
       ? `$${price.toLocaleString()} MXN/mes`
@@ -30,7 +34,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
       {/* Galería de imágenes */}
       <div className="aspect-video w-full overflow-hidden rounded-xl">
         <img
-          src={property.imagenes[0]}
+          src={imageUrl}
           alt={property.titulo}
           className="w-full h-full object-cover"
         />
