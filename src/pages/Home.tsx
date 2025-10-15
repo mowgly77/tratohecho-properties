@@ -1,16 +1,15 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import PropertyList from "@/components/PropertyList";
 import { Button } from "@/components/ui/button";
-import mockProperties from "@/data/mockProperties.json";
+import { useFeaturedProperties } from "@/hooks/useProperties";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Home = () => {
   const navigate = useNavigate();
-  const featuredProperties = mockProperties.filter((p) => p.destacada);
+  const { data: featuredProperties = [], isLoading } = useFeaturedProperties();
 
   const handleSearch = (filters: any) => {
     navigate("/propiedades", { state: { filters } });
@@ -48,7 +47,13 @@ const Home = () => {
             Las mejores oportunidades en bienes raíces
           </p>
         </div>
-        <PropertyList properties={featuredProperties} />
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-xl text-muted-foreground">Cargando propiedades...</p>
+          </div>
+        ) : (
+          <PropertyList properties={featuredProperties} />
+        )}
         <div className="text-center mt-8">
           <Button
             size="lg"

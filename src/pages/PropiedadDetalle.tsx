@@ -4,12 +4,24 @@ import Footer from "@/components/Footer";
 import PropertyDetail from "@/components/PropertyDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import mockProperties from "@/data/mockProperties.json";
+import { useProperty } from "@/hooks/useProperties";
 
 const PropiedadDetalle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const property = mockProperties.find((p) => p.id === id);
+  const { data: property, isLoading } = useProperty(id);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-xl text-muted-foreground">Cargando propiedad...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!property) {
     return (

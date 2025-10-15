@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      properties: {
+        Row: {
+          activa: boolean
+          area: number
+          banos: number | null
+          contacto_email: string
+          contacto_nombre: string
+          contacto_telefono: string
+          created_at: string
+          descripcion: string
+          destacada: boolean
+          id: string
+          imagenes: string[]
+          operacion: string
+          precio: number
+          recamaras: number | null
+          tipo: string
+          titulo: string
+          ubicacion: string
+          updated_at: string
+        }
+        Insert: {
+          activa?: boolean
+          area: number
+          banos?: number | null
+          contacto_email?: string
+          contacto_nombre?: string
+          contacto_telefono?: string
+          created_at?: string
+          descripcion: string
+          destacada?: boolean
+          id?: string
+          imagenes?: string[]
+          operacion: string
+          precio: number
+          recamaras?: number | null
+          tipo: string
+          titulo: string
+          ubicacion: string
+          updated_at?: string
+        }
+        Update: {
+          activa?: boolean
+          area?: number
+          banos?: number | null
+          contacto_email?: string
+          contacto_nombre?: string
+          contacto_telefono?: string
+          created_at?: string
+          descripcion?: string
+          destacada?: boolean
+          id?: string
+          imagenes?: string[]
+          operacion?: string
+          precio?: number
+          recamaras?: number | null
+          tipo?: string
+          titulo?: string
+          ubicacion?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

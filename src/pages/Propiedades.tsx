@@ -4,46 +4,27 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import PropertyList from "@/components/PropertyList";
-import mockProperties from "@/data/mockProperties.json";
+import { useFilteredProperties, PropertyFilters } from "@/hooks/useProperties";
 
 const Propiedades = () => {
   const location = useLocation();
-  const [filteredProperties, setFilteredProperties] = useState(mockProperties);
+  const [filters, setFilters] = useState<PropertyFilters>({
+    tipo: "todos",
+    operacion: "todos",
+    ubicacion: "",
+    precioMax: "",
+  });
+
+  const { data: properties = [], isLoading } = useFilteredProperties(filters);
 
   useEffect(() => {
     if (location.state?.filters) {
-      handleSearch(location.state.filters);
+      setFilters(location.state.filters);
     }
   }, [location.state]);
 
-  const handleSearch = (filters: {
-    tipo: string;
-    operacion: string;
-    ubicacion: string;
-    precioMax: string;
-  }) => {
-    let filtered = [...mockProperties];
-
-    if (filters.tipo && filters.tipo !== "todos") {
-      filtered = filtered.filter((p) => p.tipo === filters.tipo);
-    }
-
-    if (filters.operacion && filters.operacion !== "todos") {
-      filtered = filtered.filter((p) => p.operacion === filters.operacion);
-    }
-
-    if (filters.ubicacion) {
-      filtered = filtered.filter((p) =>
-        p.ubicacion.toLowerCase().includes(filters.ubicacion.toLowerCase())
-      );
-    }
-
-    if (filters.precioMax) {
-      const maxPrice = parseFloat(filters.precioMax);
-      filtered = filtered.filter((p) => p.precio <= maxPrice);
-    }
-
-    setFilteredProperties(filtered);
+  const handleSearch = (newFilters: PropertyFilters) => {
+    setFilters(newFilters);
   };
 
   return (
@@ -54,7 +35,7 @@ const Propiedades = () => {
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Todas las propiedades</h1>
           <p className="text-xl text-muted-foreground">
-            {filteredProperties.length} propiedades disponibles
+            {isLoading ? "Cargando..." : `${properties.length} propiedades disponibles`}
           </p>
         </div>
 
@@ -62,7 +43,13 @@ const Propiedades = () => {
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <PropertyList properties={filteredProperties} />
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-xl text-muted-foreground">Cargando propiedades...</p>
+          </div>
+        ) : (
+          <PropertyList properties={properties} />
+        )}
       </div>
 
       <Footer />

@@ -1,18 +1,5 @@
 import PropertyCard from "./PropertyCard";
-
-interface Property {
-  id: string;
-  titulo: string;
-  tipo: string;
-  operacion: string;
-  precio: number;
-  ubicacion: string;
-  descripcion: string;
-  recamaras?: number;
-  banos?: number;
-  area: number;
-  imagenes: string[];
-}
+import type { Property } from "@/hooks/useProperties";
 
 interface PropertyListProps {
   properties: Property[];

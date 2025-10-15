@@ -3,20 +3,7 @@ import { MapPin, Bed, Bath, Maximize } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-interface Property {
-  id: string;
-  titulo: string;
-  tipo: string;
-  operacion: string;
-  precio: number;
-  ubicacion: string;
-  descripcion: string;
-  recamaras?: number;
-  banos?: number;
-  area: number;
-  imagenes: string[];
-}
+import type { Property } from "@/hooks/useProperties";
 
 interface PropertyCardProps {
   property: Property;

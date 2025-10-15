@@ -2,25 +2,7 @@ import { MapPin, Bed, Bath, Maximize, Phone, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface Property {
-  id: string;
-  titulo: string;
-  tipo: string;
-  operacion: string;
-  precio: number;
-  ubicacion: string;
-  descripcion: string;
-  recamaras?: number;
-  banos?: number;
-  area: number;
-  imagenes: string[];
-  contacto: {
-    nombre: string;
-    telefono: string;
-    email: string;
-  };
-}
+import type { Property } from "@/hooks/useProperties";
 
 interface PropertyDetailProps {
   property: Property;
@@ -38,7 +20,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
       `Hola, me interesa la propiedad: ${property.titulo}`
     );
     window.open(
-      `https://wa.me/52${property.contacto.telefono}?text=${message}`,
+      `https://wa.me/52${property.contacto_telefono}?text=${message}`,
       "_blank"
     );
   };
@@ -119,7 +101,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
               <div className="space-y-3">
                 <div>
                   <p className="text-sm text-muted-foreground">Agente</p>
-                  <p className="font-medium">{property.contacto.nombre}</p>
+                  <p className="font-medium">{property.contacto_nombre}</p>
                 </div>
                 <Button
                   onClick={handleWhatsApp}
@@ -135,7 +117,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
                   size="lg"
                   asChild
                 >
-                  <a href={`mailto:${property.contacto.email}`}>
+                  <a href={`mailto:${property.contacto_email}`}>
                     <Mail className="h-4 w-4" />
                     Enviar correo
                   </a>
@@ -143,11 +125,11 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
                 <div className="pt-4 border-t text-sm text-muted-foreground">
                   <p className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
-                    {property.contacto.telefono}
+                    {property.contacto_telefono}
                   </p>
                   <p className="flex items-center gap-2 mt-1">
                     <Mail className="h-4 w-4" />
-                    {property.contacto.email}
+                    {property.contacto_email}
                   </p>
                 </div>
               </div>
