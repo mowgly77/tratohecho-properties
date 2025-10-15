@@ -75,7 +75,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
       </CardContent>
 
       <CardFooter className="p-5 pt-0">
-        <Link to={`/propiedad/${property.id}`} className="w-full">
+        <Link to={`/propiedad/${property.slug}`} className="w-full">
           <Button className="w-full" variant="outline">
             Ver detalles
           </Button>

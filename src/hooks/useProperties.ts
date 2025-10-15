@@ -18,6 +18,7 @@ export interface Property {
   contacto_nombre: string;
   contacto_telefono: string;
   contacto_email: string;
+  slug: string;
   created_at: string;
   updated_at: string;
 }
@@ -56,23 +57,23 @@ export const useFeaturedProperties = () => {
   });
 };
 
-export const useProperty = (id: string | undefined) => {
+export const useProperty = (slug: string | undefined) => {
   return useQuery({
-    queryKey: ["properties", id],
+    queryKey: ["properties", slug],
     queryFn: async () => {
-      if (!id) return null;
+      if (!slug) return null;
       
       const { data, error } = await supabase
         .from("properties")
         .select("*")
-        .eq("id", id)
+        .eq("slug", slug)
         .eq("activa", true)
         .maybeSingle();
 
       if (error) throw error;
       return data as Property | null;
     },
-    enabled: !!id,
+    enabled: !!slug,
   });
 };
 

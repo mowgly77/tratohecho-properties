@@ -7,9 +7,9 @@ import { ArrowLeft } from "lucide-react";
 import { useProperty } from "@/hooks/useProperties";
 
 const PropiedadDetalle = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const { data: property, isLoading } = useProperty(id);
+  const { data: property, isLoading } = useProperty(slug);
 
   if (isLoading) {
     return (
