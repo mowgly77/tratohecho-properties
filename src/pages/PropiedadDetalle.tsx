@@ -43,6 +43,13 @@ const PropiedadDetalle = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={`${property.titulo} en ${property.ubicacion}`}
+        description={property.descripcion?.slice(0, 155) || `${property.titulo} en ${property.ubicacion}, Querétaro. ${property.operacion} con Inmobiliaria Orquídeas.`}
+        path={`/propiedad/${property.slug}`}
+        image={property.imagenes?.[0]}
+        type="article"
+      />
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
