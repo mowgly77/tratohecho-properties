@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import SearchBar from "@/components/SearchBar";
 import PropertyList from "@/components/PropertyList";
 import { useFilteredProperties, PropertyFilters } from "@/hooks/useProperties";
@@ -29,6 +30,11 @@ const Propiedades = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Propiedades en Venta y Renta en Querétaro"
+        description="Explora todas las propiedades disponibles en Querétaro: casas, departamentos y terrenos en venta y renta con Inmobiliaria Orquídeas."
+        path="/propiedades"
+      />
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">

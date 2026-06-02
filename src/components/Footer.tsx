@@ -11,13 +11,13 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <Building2 className="h-8 w-8" />
               <div>
-                <h3 className="font-bold text-lg">C Trato Hecho</h3>
-                <p className="text-sm opacity-90">Bienes Raíces</p>
+                <h3 className="font-bold text-lg">Inmobiliaria Orquídeas</h3>
+                <p className="text-sm opacity-90">Querétaro</p>
               </div>
             </div>
             <p className="text-sm opacity-80">
-              Tu socio de confianza en bienes raíces. Encuentra la propiedad perfecta
-              para ti y tu familia en Querétaro.
+              Tu socio de confianza en bienes raíces en Querétaro. Encuentra la
+              propiedad perfecta para ti y tu familia en la ciudad de Querétaro.
             </p>
           </div>
 
@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-80">
-          <p>&copy; {new Date().getFullYear()} C Trato Hecho Bienes Raíces. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Inmobiliaria Orquídeas Querétaro. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
