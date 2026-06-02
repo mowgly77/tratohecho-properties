@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import PropertyDetail from "@/components/PropertyDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
