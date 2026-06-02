@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-80">
-          <p>&copy; {new Date().getFullYear()} C Trato Hecho Bienes Raíces. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Inmobiliaria Orquídeas Querétaro. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
