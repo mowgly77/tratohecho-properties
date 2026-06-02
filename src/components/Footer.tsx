@@ -11,13 +11,13 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <Building2 className="h-8 w-8" />
               <div>
-                <h3 className="font-bold text-lg">C Trato Hecho</h3>
-                <p className="text-sm opacity-90">Bienes Raíces</p>
+                <h3 className="font-bold text-lg">Inmobiliaria Orquídeas</h3>
+                <p className="text-sm opacity-90">Querétaro</p>
               </div>
             </div>
             <p className="text-sm opacity-80">
-              Tu socio de confianza en bienes raíces. Encuentra la propiedad perfecta
-              para ti y tu familia en Querétaro.
+              Tu socio de confianza en bienes raíces en Querétaro. Encuentra la
+              propiedad perfecta para ti y tu familia en la ciudad de Querétaro.
             </p>
           </div>
 
