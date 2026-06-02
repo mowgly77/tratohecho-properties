@@ -18,6 +18,11 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Propiedades en Querétaro: Casas y Departamentos"
+        description="Inmobiliaria Orquídeas Querétaro: descubre casas, departamentos y terrenos en venta y renta en Querétaro. Encuentra tu hogar ideal."
+        path="/"
+      />
       <Navbar />
       
       {/* Hero Section */}
