@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import SearchBar from "@/components/SearchBar";
 import PropertyList from "@/components/PropertyList";
 import { Button } from "@/components/ui/button";
