@@ -16,8 +16,8 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2">
             <Building2 className="h-8 w-8 text-primary" />
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-none text-foreground">C Trato Hecho</span>
-              <span className="text-xs text-muted-foreground">Bienes Raíces</span>
+              <span className="font-bold text-lg leading-none text-foreground">Inmobiliaria Orquídeas</span>
+              <span className="text-xs text-muted-foreground">Querétaro</span>
             </div>
           </Link>
 
