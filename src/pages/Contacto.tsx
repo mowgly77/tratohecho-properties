@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import ContactForm from "@/components/ContactForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin } from "lucide-react";
@@ -7,6 +8,11 @@ import { Phone, Mail, MapPin } from "lucide-react";
 const Contacto = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Contacto"
+        description="Contacta a Inmobiliaria Orquídeas Querétaro. Te ayudamos a encontrar o vender tu propiedad en Querétaro. Atención personalizada."
+        path="/contacto"
+      />
       <Navbar />
       
       <div className="container mx-auto px-4 py-12">
