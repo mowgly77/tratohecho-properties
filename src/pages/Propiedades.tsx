@@ -30,6 +30,11 @@ const Propiedades = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title="Propiedades en Venta y Renta en Querétaro"
+        description="Explora todas las propiedades disponibles en Querétaro: casas, departamentos y terrenos en venta y renta con Inmobiliaria Orquídeas."
+        path="/propiedades"
+      />
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
