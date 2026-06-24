@@ -1,5 +1,6 @@
-import { Building2, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/orquideas-logo.png";
 
 const Footer = () => {
   return (
@@ -8,12 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo y descripción */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Building2 className="h-8 w-8" />
-              <div>
-                <h3 className="font-bold text-lg">Inmobiliaria Orquídeas</h3>
-                <p className="text-sm opacity-90">Querétaro</p>
-              </div>
+            <div className="mb-4 bg-background inline-block rounded-md p-3">
+              <img src={logo} alt="Grupo Inmobiliario Orquídeas" className="h-14 w-auto" />
             </div>
             <p className="text-sm opacity-80">
               Tu socio de confianza en bienes raíces en Querétaro. Encuentra la
@@ -49,11 +46,11 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 opacity-80">
                 <Phone className="h-4 w-4" />
-                <span>442 170 3205</span>
+                <span>55 8367 2523</span>
               </li>
               <li className="flex items-center gap-2 opacity-80">
                 <Mail className="h-4 w-4" />
-                <span>jorge@ctratohecho.mx</span>
+                <span>roberto@orquideasqro.com.mx</span>
               </li>
               <li className="flex items-start gap-2 opacity-80">
                 <MapPin className="h-4 w-4 mt-0.5" />
@@ -64,7 +61,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-80">
-          <p>&copy; {new Date().getFullYear()} Inmobiliaria Orquídeas Querétaro. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Grupo Inmobiliario Orquídeas. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
