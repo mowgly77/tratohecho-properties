@@ -1,5 +1,6 @@
-import { Building2, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/orquideas-logo.png.asset.json";
 
 const Footer = () => {
   return (
