@@ -9,12 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo y descripción */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Building2 className="h-8 w-8" />
-              <div>
-                <h3 className="font-bold text-lg">Inmobiliaria Orquídeas</h3>
-                <p className="text-sm opacity-90">Querétaro</p>
-              </div>
+            <div className="mb-4 bg-background inline-block rounded-md p-3">
+              <img src={logo.url} alt="Grupo Inmobiliario Orquídeas" className="h-14 w-auto" />
             </div>
             <p className="text-sm opacity-80">
               Tu socio de confianza en bienes raíces en Querétaro. Encuentra la
