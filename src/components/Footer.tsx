@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "@/assets/orquideas-logo.png.asset.json";
+import logo from "@/assets/orquideas-logo.png";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo y descripción */}
           <div>
             <div className="mb-4 bg-background inline-block rounded-md p-3">
-              <img src={logo.url} alt="Grupo Inmobiliario Orquídeas" className="h-14 w-auto" />
+              <img src={logo} alt="Grupo Inmobiliario Orquídeas" className="h-14 w-auto" />
             </div>
             <p className="text-sm opacity-80">
               Tu socio de confianza en bienes raíces en Querétaro. Encuentra la

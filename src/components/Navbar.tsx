@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Home, Search, Phone, LogIn, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import logo from "@/assets/orquideas-logo.png.asset.json";
+import logo from "@/assets/orquideas-logo.png";
 
 const Navbar = () => {
   const location = useLocation();
@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo.url} alt="Grupo Inmobiliario Orquídeas" className="h-12 w-auto" />
+            <img src={logo} alt="Grupo Inmobiliario Orquídeas" className="h-12 w-auto" />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
