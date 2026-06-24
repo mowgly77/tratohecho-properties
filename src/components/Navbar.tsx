@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Phone, Building2, LogIn, Shield } from "lucide-react";
+import { Home, Search, Phone, LogIn, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/orquideas-logo.png.asset.json";
 
 const Navbar = () => {
   const location = useLocation();
