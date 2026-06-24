@@ -15,11 +15,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <Building2 className="h-8 w-8 text-primary" />
-            <div className="flex flex-col">
-              <span className="font-bold text-lg leading-none text-foreground">Inmobiliaria Orquídeas</span>
-              <span className="text-xs text-muted-foreground">Querétaro</span>
-            </div>
+            <img src={logo.url} alt="Grupo Inmobiliario Orquídeas" className="h-12 w-auto" />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
