@@ -45,7 +45,7 @@ const PropiedadDetalle = () => {
     <div className="min-h-screen flex flex-col">
       <SEO
         title={`${property.titulo} en ${property.ubicacion}`}
-        description={property.descripcion?.slice(0, 155) || `${property.titulo} en ${property.ubicacion}, Querétaro. ${property.operacion} con Inmobiliaria Orquídeas.`}
+        description={property.descripcion?.slice(0, 155) || `${property.titulo} en ${property.ubicacion}, Querétaro. ${property.operacion} con Grupo Inmobiliario Orquídeas.`}
         path={`/propiedad/${property.slug}`}
         image={property.imagenes?.[0]}
         type="article"
