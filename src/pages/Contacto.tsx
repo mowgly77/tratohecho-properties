@@ -10,7 +10,7 @@ const Contacto = () => {
     <div className="min-h-screen flex flex-col">
       <SEO
         title="Contacto"
-        description="Contacta a Inmobiliaria Orquídeas Querétaro. Te ayudamos a encontrar o vender tu propiedad en Querétaro. Atención personalizada."
+        description="Contacta a Grupo Inmobiliario Orquídeas. Te ayudamos a encontrar o vender tu propiedad en Querétaro. Atención personalizada."
         path="/contacto"
       />
       <Navbar />
@@ -42,7 +42,7 @@ const Contacto = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Teléfono</h3>
-                    <p className="text-muted-foreground">442 170 3205</p>
+                    <p className="text-muted-foreground">55 8367 2523</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       Lunes a Viernes, 9:00 AM - 6:00 PM
                     </p>
@@ -59,7 +59,7 @@ const Contacto = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Correo electrónico</h3>
-                    <p className="text-muted-foreground">jorge@ctratohecho.mx</p>
+                    <p className="text-muted-foreground">roberto@orquideasqro.com.mx</p>
                     <p className="text-sm text-muted-foreground mt-1">
                       Te responderemos en menos de 24 horas
                     </p>

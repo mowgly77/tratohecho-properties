@@ -46,11 +46,11 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 opacity-80">
                 <Phone className="h-4 w-4" />
-                <span>442 170 3205</span>
+                <span>55 8367 2523</span>
               </li>
               <li className="flex items-center gap-2 opacity-80">
                 <Mail className="h-4 w-4" />
-                <span>jorge@ctratohecho.mx</span>
+                <span>roberto@orquideasqro.com.mx</span>
               </li>
               <li className="flex items-start gap-2 opacity-80">
                 <MapPin className="h-4 w-4 mt-0.5" />
@@ -61,7 +61,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-80">
-          <p>&copy; {new Date().getFullYear()} Inmobiliaria Orquídeas Querétaro. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Grupo Inmobiliario Orquídeas. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
