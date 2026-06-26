@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo y descripción */}
           <div>
             <div className="mb-4 bg-background inline-block rounded-md p-3">
-              <img src={logo} alt="Grupo Inmobiliario Orquídeas" className="h-14 w-auto" />
+              <img src={logo} alt="Grupo Inmobiliario Orquídeas" className="h-20 w-auto" />
             </div>
             <p className="text-sm opacity-80">
               Tu socio de confianza en bienes raíces en Querétaro. Encuentra la

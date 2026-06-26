@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE_URL = "https://tratohecho-properties.lovable.app";
+const SITE_URL = "https://orquideasqro.com";
 const SITE_NAME = "Grupo Inmobiliario Orquídeas";
 
 interface SEOProps {
