@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  MapPin, Bed, Bath, Car, Maximize, Ruler, Phone, Mail, FileText, ShieldCheck, Check,
+  MapPin, Bed, Bath, Car, Maximize, Ruler, Phone, Mail, FileText, ShieldCheck, Check, X,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
       ? property.imagenes
       : ["/images/placeholder.jpg"];
   const [active, setActive] = useState(0);
+  const [modal, setModal] = useState<number | null>(null);
 
   const formatPrice = (price: number, operation: string) =>
     operation === "Renta"
@@ -54,30 +55,13 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
 
   return (
     <div className="space-y-8">
-      {/* Galería */}
-      <div className="space-y-3">
-        <div className="aspect-video w-full overflow-hidden rounded-xl bg-muted">
-          <img
-            src={images[active]}
-            alt={property.titulo}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        {images.length > 1 && (
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
-            {images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                className={`aspect-video overflow-hidden rounded-md border-2 transition ${
-                  i === active ? "border-accent" : "border-transparent opacity-70 hover:opacity-100"
-                }`}
-              >
-                <img src={img} alt={`Foto ${i + 1}`} className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        )}
+      {/* Foto principal */}
+      <div className="aspect-video w-full overflow-hidden rounded-xl bg-muted">
+        <img
+          src={images[0]}
+          alt={property.titulo}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -204,6 +188,58 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
           </Card>
         </div>
       </div>
+
+      {/* Galería de fotos adicionales */}
+      {images.length > 1 && (
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Fotos</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {images.slice(1).map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setModal(i + 1)}
+                className="aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent"
+              >
+                <img src={img} alt={`Foto ${i + 2}`} className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Modal */}
+      {modal !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setModal(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition"
+            onClick={() => setModal(null)}
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <div className="flex items-center gap-4 px-4 max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition disabled:opacity-30"
+              onClick={() => setModal((m) => (m! > 1 ? m! - 1 : images.length - 1))}
+            >
+              ‹
+            </button>
+            <img
+              src={images[modal]}
+              alt={`Foto ${modal + 1}`}
+              className="max-h-[85vh] max-w-full rounded-xl object-contain mx-auto"
+            />
+            <button
+              className="text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition disabled:opacity-30"
+              onClick={() => setModal((m) => (m! < images.length - 1 ? m! + 1 : 1))}
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

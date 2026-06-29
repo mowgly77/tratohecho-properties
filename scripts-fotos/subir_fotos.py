@@ -52,8 +52,13 @@ try:
 except Exception:
     pass  # ya existe
 
-def compress(path: Path) -> bytes:
-    im = Image.open(path).convert("RGB")
+def compress(path: Path, rotate_cw: bool = False) -> bytes:
+    from PIL import ImageOps
+    im = Image.open(path)
+    im = ImageOps.exif_transpose(im)   # corrige orientación EXIF automáticamente
+    im = im.convert("RGB")
+    if rotate_cw:
+        im = im.rotate(-90, expand=True)  # 90° a la derecha
     if im.width > MAX_W:
         im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
     buf = io.BytesIO()
@@ -77,8 +82,9 @@ for sub in sorted([d for d in base.iterdir() if d.is_dir()]):
     imgs = order_files(imgs)
     urls = []
     for i, f in enumerate(imgs):
-        name = f"{clave}-fachada.jpg" if "fachada" in f.name.lower() and not any("fachada" in u for u in urls) else f"{clave}-{i:02d}.jpg"
-        data = compress(f)
+        is_fachada = "fachada" in f.name.lower() and not any("fachada" in u for u in urls)
+        name = f"{clave}-fachada.jpg" if is_fachada else f"{clave}-{i:02d}.jpg"
+        data = compress(f, rotate_cw=not is_fachada)
         path = f"{clave}/{name}"
         try:
             sb.storage.from_(BUCKET).upload(path, data, {"content-type": "image/jpeg", "upsert": "true"})
