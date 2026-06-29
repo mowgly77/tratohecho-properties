@@ -60,6 +60,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
           <div className="text-4xl font-bold text-primary">
             {formatPrice(property.precio, property.operacion)}
           </div>
+          <p className="text-sm text-muted-foreground italic mt-1">Precio a evaluar en oferta</p>
 
           <div className="flex gap-6 py-4 border-y">
             {property.recamaras && (

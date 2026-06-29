@@ -72,6 +72,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         <p className="text-2xl font-bold text-primary">
           {formatPrice(property.precio, property.operacion)}
         </p>
+        <p className="text-xs text-muted-foreground italic">Precio a evaluar en oferta</p>
       </CardContent>
 
       <CardFooter className="p-5 pt-0">
