@@ -57,8 +57,6 @@ def compress(path: Path, rotate_cw: bool = False) -> bytes:
     im = Image.open(path)
     im = ImageOps.exif_transpose(im)   # corrige orientación EXIF automáticamente
     im = im.convert("RGB")
-    if rotate_cw:
-        im = im.rotate(-90, expand=True)  # 90° a la derecha
     if im.width > MAX_W:
         im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
     buf = io.BytesIO()
