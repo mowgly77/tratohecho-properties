@@ -19,6 +19,12 @@ export interface Property {
   contacto_telefono: string;
   contacto_email: string;
   slug: string;
+  clave_control: string | null;
+  estacionamientos: number | null;
+  m2_construccion: number | null;
+  amenidades: string[] | null;
+  con_escritura: string | null;
+  posesion_fisica: string | null;
   created_at: string;
   updated_at: string;
 }
