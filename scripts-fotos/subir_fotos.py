@@ -22,10 +22,13 @@ import os, sys, io, re
 from pathlib import Path
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageOps
     from supabase import create_client
 except ImportError:
     sys.exit("Faltan dependencias. Corre:  pip install pillow supabase")
+
+# Logo para marca de agua — relativo al script
+LOGO_PATH = Path(__file__).parent.parent / "src" / "assets" / "orquideas-logo.png"
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://tcrpbreldqvuuyatnrth.supabase.co")
 SUPABASE_KEY = os.environ.get("SB_SERVICE_KEY") or os.environ.get("SB_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRjcnBicmVsZHF2dXV5YXRucnRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0OTkxMjMsImV4cCI6MjA3NjA3NTEyM30.oaWGtU4NW08HdfvMmUtwn4V5eQqMmIRyWF5uNjQCDYQ")
@@ -52,13 +55,33 @@ try:
 except Exception:
     pass  # ya existe
 
-def compress(path: Path, rotate_cw: bool = False) -> bytes:
-    from PIL import ImageOps
+def add_watermark(im: Image.Image) -> Image.Image:
+    if not LOGO_PATH.exists():
+        return im
+    logo = Image.open(LOGO_PATH).convert("RGBA")
+    # Escala el logo a 22% del ancho de la foto
+    max_logo_w = max(80, int(im.width * 0.22))
+    ratio = max_logo_w / logo.width
+    logo = logo.resize((max_logo_w, int(logo.height * ratio)), Image.LANCZOS)
+    # Reduce opacidad al 55%
+    r, g, b, a = logo.split()
+    a = a.point(lambda x: int(x * 0.55))
+    logo.putalpha(a)
+    # Posición: esquina inferior derecha con margen
+    margin = int(im.width * 0.02)
+    pos = (im.width - logo.width - margin, im.height - logo.height - margin)
+    base = im.convert("RGBA")
+    base.paste(logo, pos, logo)
+    return base.convert("RGB")
+
+
+def compress(path: Path) -> bytes:
     im = Image.open(path)
-    im = ImageOps.exif_transpose(im)   # corrige orientación EXIF automáticamente
+    im = ImageOps.exif_transpose(im)
     im = im.convert("RGB")
     if im.width > MAX_W:
         im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
+    im = add_watermark(im)
     buf = io.BytesIO()
     im.save(buf, "JPEG", quality=QUALITY, optimize=True)
     return buf.getvalue()
@@ -82,7 +105,7 @@ for sub in sorted([d for d in base.iterdir() if d.is_dir()]):
     for i, f in enumerate(imgs):
         is_fachada = "fachada" in f.name.lower() and not any("fachada" in u for u in urls)
         name = f"{clave}-fachada.jpg" if is_fachada else f"{clave}-{i:02d}.jpg"
-        data = compress(f, rotate_cw=not is_fachada)
+        data = compress(f)
         path = f"{clave}/{name}"
         try:
             sb.storage.from_(BUCKET).upload(path, data, {"content-type": "image/jpeg", "upsert": "true"})
