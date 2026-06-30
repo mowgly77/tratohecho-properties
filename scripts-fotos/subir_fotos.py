@@ -59,17 +59,16 @@ def add_watermark(im: Image.Image) -> Image.Image:
     if not LOGO_PATH.exists():
         return im
     logo = Image.open(LOGO_PATH).convert("RGBA")
-    # Escala el logo a 22% del ancho de la foto
-    max_logo_w = max(80, int(im.width * 0.22))
-    ratio = max_logo_w / logo.width
-    logo = logo.resize((max_logo_w, int(logo.height * ratio)), Image.LANCZOS)
-    # Reduce opacidad al 55%
+    # Escala el logo al 50% del ancho de la foto
+    target_w = int(im.width * 0.50)
+    ratio = target_w / logo.width
+    logo = logo.resize((target_w, int(logo.height * ratio)), Image.LANCZOS)
+    # Opacidad al 40% — visible pero no tapa el contenido por completo
     r, g, b, a = logo.split()
-    a = a.point(lambda x: int(x * 0.55))
+    a = a.point(lambda x: int(x * 0.40))
     logo.putalpha(a)
-    # Posición: esquina inferior derecha con margen
-    margin = int(im.width * 0.02)
-    pos = (im.width - logo.width - margin, im.height - logo.height - margin)
+    # Centrada en la imagen
+    pos = ((im.width - logo.width) // 2, (im.height - logo.height) // 2)
     base = im.convert("RGBA")
     base.paste(logo, pos, logo)
     return base.convert("RGB")

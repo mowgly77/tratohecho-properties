@@ -55,13 +55,17 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
 
   return (
     <div className="space-y-8">
-      {/* Foto principal */}
-      <div className="aspect-video w-full overflow-hidden rounded-xl bg-muted">
+      {/* Foto principal — protegida contra descarga */}
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-muted select-none">
         <img
           src={images[0]}
           alt={property.titulo}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover pointer-events-none"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
         />
+        {/* Overlay transparente bloquea clic derecho y arrastre */}
+        <div className="absolute inset-0" onContextMenu={(e) => e.preventDefault()} />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -199,9 +203,11 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
               <button
                 key={i}
                 onClick={() => setModal(i + 1)}
-                className="aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent"
+                className="relative aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent select-none"
+                onContextMenu={(e) => e.preventDefault()}
               >
-                <img src={img} alt={`Foto ${i + 2}`} className="w-full h-full object-cover" />
+                <img src={img} alt={`Foto ${i + 2}`} className="w-full h-full object-cover pointer-events-none" draggable={false} />
+                <div className="absolute inset-0" onContextMenu={(e) => e.preventDefault()} />
               </button>
             ))}
           </div>
@@ -227,11 +233,15 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
             >
               ‹
             </button>
-            <img
-              src={images[modal]}
-              alt={`Foto ${modal + 1}`}
-              className="max-h-[85vh] max-w-full rounded-xl object-contain mx-auto"
-            />
+            <div className="relative select-none" onContextMenu={(e) => e.preventDefault()}>
+              <img
+                src={images[modal]}
+                alt={`Foto ${modal + 1}`}
+                className="max-h-[85vh] max-w-full rounded-xl object-contain mx-auto pointer-events-none"
+                draggable={false}
+              />
+              <div className="absolute inset-0 rounded-xl" onContextMenu={(e) => e.preventDefault()} />
+            </div>
             <button
               className="text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition disabled:opacity-30"
               onClick={() => setModal((m) => (m! < images.length - 1 ? m! + 1 : 1))}
