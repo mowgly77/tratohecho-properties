@@ -59,18 +59,28 @@ def add_watermark(im: Image.Image) -> Image.Image:
     if not LOGO_PATH.exists():
         return im
     logo = Image.open(LOGO_PATH).convert("RGBA")
-    # Escala el logo al 50% del ancho de la foto
-    target_w = int(im.width * 0.50)
-    ratio = target_w / logo.width
-    logo = logo.resize((target_w, int(logo.height * ratio)), Image.LANCZOS)
-    # Opacidad al 40% — visible pero no tapa el contenido por completo
+    # Escala el logo a 30% del ancho — tamaño razonable para repetir en fila
+    tile_w = int(im.width * 0.30)
+    ratio = tile_w / logo.width
+    logo = logo.resize((tile_w, int(logo.height * ratio)), Image.LANCZOS)
+    # Opacidad al 35%
     r, g, b, a = logo.split()
-    a = a.point(lambda x: int(x * 0.40))
+    a = a.point(lambda x: int(x * 0.35))
     logo.putalpha(a)
-    # Centrada en la imagen
-    pos = ((im.width - logo.width) // 2, (im.height - logo.height) // 2)
+
     base = im.convert("RGBA")
-    base.paste(logo, pos, logo)
+    gap = int(im.width * 0.05)           # espacio entre repeticiones
+    step = logo.width + gap
+    # Calcula cuántas repeticiones caben + una extra para cubrir los bordes
+    cols = (im.width // step) + 2
+    # Centra verticalmente la fila
+    y = (im.height - logo.height) // 2
+    # Pega las repeticiones horizontales
+    start_x = -((step - (im.width % step)) // 2)  # centra la fila
+    for col in range(cols):
+        x = start_x + col * step
+        base.paste(logo, (x, y), logo)
+
     return base.convert("RGB")
 
 
