@@ -17,17 +17,23 @@ export type Database = {
       properties: {
         Row: {
           activa: boolean
+          amenidades: string[] | null
           area: number
           banos: number | null
+          clave_control: string | null
+          con_escritura: string | null
           contacto_email: string
           contacto_nombre: string
           contacto_telefono: string
           created_at: string
           descripcion: string
           destacada: boolean
+          estacionamientos: number | null
           id: string
           imagenes: string[]
+          m2_construccion: number | null
           operacion: string
+          posesion_fisica: string | null
           precio: number
           recamaras: number | null
           slug: string
@@ -38,17 +44,23 @@ export type Database = {
         }
         Insert: {
           activa?: boolean
+          amenidades?: string[] | null
           area: number
           banos?: number | null
+          clave_control?: string | null
+          con_escritura?: string | null
           contacto_email?: string
           contacto_nombre?: string
           contacto_telefono?: string
           created_at?: string
           descripcion: string
           destacada?: boolean
+          estacionamientos?: number | null
           id?: string
           imagenes?: string[]
+          m2_construccion?: number | null
           operacion: string
+          posesion_fisica?: string | null
           precio: number
           recamaras?: number | null
           slug: string
@@ -59,17 +71,23 @@ export type Database = {
         }
         Update: {
           activa?: boolean
+          amenidades?: string[] | null
           area?: number
           banos?: number | null
+          clave_control?: string | null
+          con_escritura?: string | null
           contacto_email?: string
           contacto_nombre?: string
           contacto_telefono?: string
           created_at?: string
           descripcion?: string
           destacada?: boolean
+          estacionamientos?: number | null
           id?: string
           imagenes?: string[]
+          m2_construccion?: number | null
           operacion?: string
+          posesion_fisica?: string | null
           precio?: number
           recamaras?: number | null
           slug?: string
