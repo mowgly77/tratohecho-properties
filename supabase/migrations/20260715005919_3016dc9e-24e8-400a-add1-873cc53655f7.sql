@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Fotos son públicas" ON storage.objects;
