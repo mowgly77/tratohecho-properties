@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MapPin, Bed, Bath, Car, Maximize, Ruler, Phone, Mail, FileText, ShieldCheck, Check, X,
 } from "lucide-react";
@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Property } from "@/hooks/useProperties";
+import { analytics } from "@/lib/analytics";
 
 interface PropertyDetailProps {
   property: Property;
@@ -24,7 +25,12 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
       ? `$${price.toLocaleString()} MXN/mes`
       : `$${price.toLocaleString()} MXN`;
 
+  useEffect(() => {
+    analytics.propertyView(property.titulo, property.clave_control ?? "", property.precio ?? 0, property.tipo ?? "");
+  }, [property.clave_control]);
+
   const handleWhatsApp = () => {
+    analytics.whatsappClick(property.titulo, property.clave_control ?? "");
     const message = encodeURIComponent(
       `Hola, me interesa la propiedad: ${property.titulo}`
     );
@@ -160,7 +166,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
                   <Phone className="h-4 w-4" />
                   WhatsApp
                 </Button>
-                <Button variant="outline" className="w-full gap-2" size="lg" asChild>
+                <Button variant="outline" className="w-full gap-2" size="lg" asChild onClick={() => analytics.phoneClick(property.titulo, property.clave_control ?? "")}>
                   <a href={`mailto:${property.contacto_email}`}>
                     <Mail className="h-4 w-4" />
                     Enviar correo
@@ -202,7 +208,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
             {images.slice(1).map((img, i) => (
               <button
                 key={i}
-                onClick={() => setModal(i + 1)}
+                onClick={() => { analytics.galleryOpen(property.titulo, property.clave_control ?? ""); setModal(i + 1); }}
                 className="relative aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent select-none"
                 onContextMenu={(e) => e.preventDefault()}
               >

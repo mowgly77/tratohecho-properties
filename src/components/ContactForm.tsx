@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
+import { analytics } from "@/lib/analytics";
 
 const formSchema = z.object({
   nombre: z.string().min(2, "El nombre debe tener al menos 2 caracteres").max(100),
@@ -44,10 +45,11 @@ const ContactForm = () => {
     
     console.log("Formulario enviado:", values);
     
+    analytics.contactFormSubmit(values.nombre);
     toast.success("Mensaje enviado exitosamente", {
       description: "Nos pondremos en contacto contigo pronto.",
     });
-    
+
     form.reset();
     setIsSubmitting(false);
   };

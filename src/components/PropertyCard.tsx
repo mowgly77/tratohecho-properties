@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Property } from "@/hooks/useProperties";
+import { analytics } from "@/lib/analytics";
 
 interface PropertyCardProps {
   property: Property;
@@ -78,7 +79,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
 
       <CardFooter className="p-5 pt-0">
         <Link to={`/propiedad/${property.slug}`} className="w-full">
-          <Button className="w-full" variant="outline">
+          <Button className="w-full" variant="outline" onClick={() => analytics.propertyClick(property.titulo, property.clave_control ?? "")}>
             Ver detalles
           </Button>
         </Link>
