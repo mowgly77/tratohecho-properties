@@ -49,6 +49,44 @@ const PropiedadDetalle = () => {
         path={`/propiedad/${property.slug}`}
         image={property.imagenes?.[0]}
         type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "RealEstateListing",
+          "name": property.titulo,
+          "description": property.descripcion,
+          "url": `https://inmobiliariaorquideas.com/propiedad/${property.slug}`,
+          "image": property.imagenes?.map((img: string) =>
+            img.startsWith("http") ? img : `https://inmobiliariaorquideas.com${img}`
+          ) ?? [],
+          "offers": {
+            "@type": "Offer",
+            "price": property.precio,
+            "priceCurrency": "MXN",
+            "availability": "https://schema.org/InStock",
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": property.ubicacion,
+            "addressLocality": "Querétaro",
+            "addressRegion": "Querétaro",
+            "addressCountry": "MX",
+          },
+          ...(property.recamaras && { "numberOfRooms": property.recamaras }),
+          ...(property.banos && { "numberOfBathroomsTotal": property.banos }),
+          ...(property.m2_construccion && {
+            "floorSize": {
+              "@type": "QuantitativeValue",
+              "value": property.m2_construccion,
+              "unitCode": "MTK",
+            },
+          }),
+          "seller": {
+            "@type": "RealEstateAgent",
+            "name": "Grupo Inmobiliario Orquídeas",
+            "telephone": `+52${property.contacto_telefono}`,
+            "url": "https://inmobiliariaorquideas.com",
+          },
+        }}
       />
       <Navbar />
       

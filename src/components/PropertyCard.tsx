@@ -26,6 +26,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         <img
           src={imageUrl}
           alt={property.titulo}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute top-3 left-3 flex gap-2">

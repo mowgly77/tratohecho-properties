@@ -206,7 +206,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
                 className="relative aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent select-none"
                 onContextMenu={(e) => e.preventDefault()}
               >
-                <img src={img} alt={`Foto ${i + 2}`} className="w-full h-full object-cover pointer-events-none" draggable={false} />
+                <img src={img} alt={`${property.titulo} — foto ${i + 2}`} loading="lazy" className="w-full h-full object-cover pointer-events-none" draggable={false} />
                 <div className="absolute inset-0" onContextMenu={(e) => e.preventDefault()} />
               </button>
             ))}

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE_URL = "https://orquideasqro.com";
+const SITE_URL = "https://inmobiliariaorquideas.com";
 const SITE_NAME = "Grupo Inmobiliario Orquídeas";
 
 interface SEOProps {
@@ -9,11 +9,13 @@ interface SEOProps {
   path: string;
   image?: string;
   type?: "website" | "article";
+  jsonLd?: object;
 }
 
-const SEO = ({ title, description, path, image, type = "website" }: SEOProps) => {
+const SEO = ({ title, description, path, image, type = "website", jsonLd }: SEOProps) => {
   const url = `${SITE_URL}${path}`;
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+  const ogImage = image?.startsWith("http") ? image : image ? `${SITE_URL}${image}` : undefined;
 
   return (
     <Helmet>
@@ -24,7 +26,19 @@ const SEO = ({ title, description, path, image, type = "website" }: SEOProps) =>
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
-      {image && <meta property="og:image" content={image} />}
+      <meta property="og:site_name" content={SITE_NAME} />
+      {ogImage && <meta property="og:image" content={ogImage} />}
+      {ogImage && <meta property="og:image:width" content="1200" />}
+      {ogImage && <meta property="og:image:height" content="900" />}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description} />
+      {ogImage && <meta name="twitter:image" content={ogImage} />}
+      {jsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+      )}
     </Helmet>
   );
 };
