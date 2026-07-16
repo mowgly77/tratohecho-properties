@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://tratohecho-properties.lovable.app/sitemap.xml
+Sitemap: https://inmobiliariaorquideas.com/sitemap.xml
