@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Property } from "@/hooks/useProperties";
 import { analytics } from "@/lib/analytics";
+import OptimizedImage from "@/components/ui/OptimizedImage";
 
 interface PropertyDetailProps {
   property: Property;
@@ -63,9 +64,10 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
     <div className="space-y-8">
       {/* Foto principal — protegida contra descarga */}
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-muted select-none">
-        <img
+        <OptimizedImage
           src={images[0]}
           alt={property.titulo}
+          fetchPriority="high"
           className="w-full h-full object-cover pointer-events-none"
           draggable={false}
           onContextMenu={(e) => e.preventDefault()}
@@ -212,7 +214,7 @@ const PropertyDetail = ({ property }: PropertyDetailProps) => {
                 className="relative aspect-video overflow-hidden rounded-lg border hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-accent select-none"
                 onContextMenu={(e) => e.preventDefault()}
               >
-                <img src={img} alt={`${property.titulo} — foto ${i + 2}`} loading="lazy" className="w-full h-full object-cover pointer-events-none" draggable={false} />
+                <OptimizedImage src={img} alt={`${property.titulo} — foto ${i + 2}`} loading="lazy" className="w-full h-full object-cover pointer-events-none" draggable={false} />
                 <div className="absolute inset-0" onContextMenu={(e) => e.preventDefault()} />
               </button>
             ))}

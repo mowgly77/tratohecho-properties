@@ -11,6 +11,8 @@ User-agent: facebookexternalhit
 Allow: /
 
 User-agent: *
+Disallow: /auth
+Disallow: /admin
 Allow: /
 
 Sitemap: https://inmobiliariaorquideas.com/sitemap.xml

@@ -51,7 +51,7 @@ const PropiedadDetalle = () => {
         type="article"
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "RealEstateListing",
+          "@type": property.tipo === "Departamento" ? "Apartment" : property.tipo === "Terreno" ? "LandmarksOrHistoricalBuildings" : "SingleFamilyResidence",
           "name": property.titulo,
           "description": property.descripcion,
           "url": `https://inmobiliariaorquideas.com/propiedad/${property.slug}`,

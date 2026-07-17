@@ -5,12 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Property } from "@/hooks/useProperties";
 import { analytics } from "@/lib/analytics";
+import OptimizedImage from "@/components/ui/OptimizedImage";
 
 interface PropertyCardProps {
   property: Property;
+  index?: number;
 }
 
-const PropertyCard = ({ property }: PropertyCardProps) => {
+const PropertyCard = ({ property, index = 99 }: PropertyCardProps) => {
+  const isAboveFold = index < 3;
   const formatPrice = (price: number, operation: string) => {
     return operation === "Renta" 
       ? `$${price.toLocaleString()}/mes`
@@ -24,10 +27,11 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
+        <OptimizedImage
           src={imageUrl}
           alt={property.titulo}
-          loading="lazy"
+          loading={isAboveFold ? "eager" : "lazy"}
+          fetchPriority={index === 0 ? "high" : "auto"}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute top-3 left-3 flex gap-2">

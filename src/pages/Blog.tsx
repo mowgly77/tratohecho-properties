@@ -3,6 +3,7 @@ import { CalendarDays, Tag, ArrowRight, BookOpen } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
 import { useBlogPosts } from "@/hooks/useBlog";
+import OptimizedImage from "@/components/ui/OptimizedImage";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
@@ -13,7 +14,7 @@ const Blog = () => {
   return (
     <>
       <SEO
-        title="Blog Inmobiliario Querétaro | Guías y Consejos"
+        title="Blog Inmobiliario Querétaro | Orquídeas QRO"
         description="Guías, consejos y artículos sobre compra, venta y renta de propiedades en Querétaro. Aprende a tomar mejores decisiones inmobiliarias con Orquídeas."
         path="/blog"
         jsonLd={{
@@ -63,17 +64,18 @@ const Blog = () => {
 
         {!isLoading && posts && posts.length > 0 && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post, i) => (
               <article
                 key={post.id}
                 className="group flex flex-col rounded-2xl border bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
               >
                 {post.imagen_portada ? (
                   <Link to={`/blog/${post.slug}`}>
-                    <img
+                    <OptimizedImage
                       src={post.imagen_portada}
                       alt={post.titulo}
-                      loading="lazy"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      fetchPriority={i === 0 ? "high" : "auto"}
                       className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </Link>

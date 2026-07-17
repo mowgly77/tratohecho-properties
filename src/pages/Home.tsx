@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Casas en Venta Querétaro | Inmobiliaria Orquídeas"
+        title="Casas en Venta Querétaro | Inmobiliaria Orquídeas QRO"
         description="Casas y departamentos en venta en Querétaro. Asesoría experta, trato directo y las mejores propiedades en Los Candiles, Juriquilla y más."
         path="/"
       />
@@ -34,10 +34,10 @@ const Home = () => {
       >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            Encuentra tu hogar ideal
+            Casas en Venta en Querétaro
           </h1>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Descubre las mejores propiedades en renta y venta en Querétaro
+            Encuentra tu hogar ideal — casas, departamentos y terrenos con trato directo
           </p>
           <div className="max-w-4xl mx-auto">
             <SearchBar onSearch={handleSearch} />

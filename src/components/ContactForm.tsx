@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Send } from "lucide-react";
 import { analytics } from "@/lib/analytics";
+import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
   nombre: z.string().min(2, "El nombre debe tener al menos 2 caracteres").max(100),
@@ -24,34 +25,38 @@ const formSchema = z.object({
   mensaje: z.string().min(10, "El mensaje debe tener al menos 10 caracteres").max(1000),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      nombre: "",
-      email: "",
-      telefono: "",
-      mensaje: "",
-    },
+    defaultValues: { nombre: "", email: "", telefono: "", mensaje: "" },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
-    
-    // Simular envío
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    console.log("Formulario enviado:", values);
-    
-    analytics.contactFormSubmit(values.nombre);
-    toast.success("Mensaje enviado exitosamente", {
-      description: "Nos pondremos en contacto contigo pronto.",
-    });
+    try {
+      const { error } = await (supabase as any)
+        .from("contactos")
+        .insert([{ nombre: values.nombre, email: values.email, telefono: values.telefono, mensaje: values.mensaje }]);
 
-    form.reset();
-    setIsSubmitting(false);
+      if (error) throw error;
+
+      analytics.contactFormSubmit(values.nombre);
+      toast.success("Mensaje enviado exitosamente", {
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
+      form.reset();
+    } catch (err) {
+      console.error("Error al enviar formulario:", err);
+      toast.error("Error al enviar el mensaje", {
+        description: "Por favor intenta de nuevo o contáctanos por WhatsApp.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

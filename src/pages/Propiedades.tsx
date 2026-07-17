@@ -31,7 +31,7 @@ const Propiedades = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Propiedades en Venta en Querétaro | Orquídeas"
+        title="Propiedades en Venta en Querétaro | Orquídeas QRO"
         description="Casas, departamentos y terrenos en venta en Querétaro. Encuentra tu propiedad ideal con Inmobiliaria Orquídeas. Trato directo, asesoría experta."
         path="/propiedades"
       />
@@ -39,7 +39,7 @@ const Propiedades = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Todas las propiedades</h1>
+          <h1 className="text-4xl font-bold mb-2">Casas, Departamentos y Terrenos en Querétaro</h1>
           <p className="text-xl text-muted-foreground">
             {isLoading ? "Cargando..." : `${properties.length} propiedades disponibles`}
           </p>

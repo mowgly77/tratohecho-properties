@@ -17,7 +17,7 @@ const Contacto = () => {
       
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Contáctanos</h1>
+          <h1 className="text-4xl font-bold mb-4">Contacta a Inmobiliaria Orquídeas</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             ¿Tienes preguntas? Estamos aquí para ayudarte a encontrar la propiedad perfecta
           </p>

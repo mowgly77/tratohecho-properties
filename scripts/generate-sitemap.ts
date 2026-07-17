@@ -16,6 +16,7 @@ interface SitemapEntry {
 const staticEntries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/propiedades", changefreq: "daily", priority: "0.9" },
+  { path: "/blog", changefreq: "weekly", priority: "0.7" },
   { path: "/contacto", changefreq: "monthly", priority: "0.6" },
 ];
 
@@ -51,6 +52,32 @@ async function fetchPropertyEntries(): Promise<SitemapEntry[]> {
   }
 }
 
+
+async function fetchBlogEntries(): Promise<SitemapEntry[]> {
+  const url = process.env.VITE_SUPABASE_URL;
+  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  if (!url || !key) return [];
+
+  try {
+    const res = await fetch(
+      `${url}/rest/v1/blog_posts?select=slug,updated_at&publicado=eq.true`,
+      { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+    );
+    if (!res.ok) return [];
+    const rows = (await res.json()) as { slug: string; updated_at: string }[];
+    return rows
+      .filter((r) => r.slug)
+      .map((r) => ({
+        path: `/blog/${r.slug}`,
+        lastmod: r.updated_at ? new Date(r.updated_at).toISOString().split("T")[0] : undefined,
+        changefreq: "monthly" as const,
+        priority: "0.6",
+      }));
+  } catch {
+    return [];
+  }
+}
+
 function generateSitemap(entries: SitemapEntry[]) {
   const urls = entries.map((e) =>
     [
@@ -73,6 +100,6 @@ function generateSitemap(entries: SitemapEntry[]) {
   ].join("\n");
 }
 
-const entries = [...staticEntries, ...(await fetchPropertyEntries())];
+const entries = [...staticEntries, ...(await fetchPropertyEntries()), ...(await fetchBlogEntries())];
 writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
 console.log(`sitemap.xml written (${entries.length} entries)`);

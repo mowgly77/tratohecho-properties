@@ -14,7 +14,7 @@ interface SEOProps {
 
 const SEO = ({ title, description, path, image, type = "website", jsonLd }: SEOProps) => {
   const url = `${SITE_URL}${path}`;
-  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+  const fullTitle = title.includes("Orquídeas") ? title : `${title} | Orquídeas QRO`;
   const ogImage = image?.startsWith("http") ? image : image ? `${SITE_URL}${image}` : undefined;
 
   return (
@@ -29,7 +29,7 @@ const SEO = ({ title, description, path, image, type = "website", jsonLd }: SEOP
       <meta property="og:site_name" content={SITE_NAME} />
       {ogImage && <meta property="og:image" content={ogImage} />}
       {ogImage && <meta property="og:image:width" content="1200" />}
-      {ogImage && <meta property="og:image:height" content="900" />}
+      {ogImage && <meta property="og:image:height" content="630" />}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />

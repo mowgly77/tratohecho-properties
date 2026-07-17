@@ -3,6 +3,7 @@ import { CalendarDays, Tag, ArrowLeft, User } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
 import { useBlogPost } from "@/hooks/useBlog";
+import OptimizedImage from "@/components/ui/OptimizedImage";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("es-MX", { year: "numeric", month: "long", day: "numeric" });
@@ -57,9 +58,9 @@ const BlogPost = () => {
           "dateModified": post.updated_at,
           "url": canonicalUrl,
           "author": {
-            "@type": "Organization",
+            "@type": "Person",
             "name": post.autor ?? "Grupo Inmobiliario Orquídeas",
-            "url": "https://inmobiliariaorquideas.com",
+            "url": "https://inmobiliariaorquideas.com/blog",
           },
           "publisher": {
             "@type": "Organization",
@@ -110,9 +111,10 @@ const BlogPost = () => {
 
         {/* Imagen portada */}
         {post.imagen_portada && (
-          <img
+          <OptimizedImage
             src={post.imagen_portada}
             alt={post.titulo}
+            fetchPriority="high"
             className="w-full rounded-2xl mb-8 object-cover max-h-80"
           />
         )}
