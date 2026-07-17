@@ -9,8 +9,8 @@ const Contacto = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Contacto"
-        description="Contacta a Grupo Inmobiliario Orquídeas. Te ayudamos a encontrar o vender tu propiedad en Querétaro. Atención personalizada."
+        title="Contacto Inmobiliaria Querétaro | Orquídeas"
+        description="Contacta a Inmobiliaria Orquídeas en Querétaro. Vende o compra tu casa con asesoría experta y trato directo. Llámanos: 55 8367 2523."
         path="/contacto"
       />
       <Navbar />

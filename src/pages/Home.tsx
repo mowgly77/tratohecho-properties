@@ -19,8 +19,8 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
-        title="Propiedades en Querétaro: Casas y Departamentos"
-        description="Grupo Inmobiliario Orquídeas: descubre casas, departamentos y terrenos en venta y renta en Querétaro. Encuentra tu hogar ideal."
+        title="Casas en Venta Querétaro | Inmobiliaria Orquídeas"
+        description="Casas y departamentos en venta en Querétaro. Asesoría experta, trato directo y las mejores propiedades en Los Candiles, Juriquilla y más."
         path="/"
       />
       <Navbar />
