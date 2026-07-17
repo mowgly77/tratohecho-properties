@@ -1,12 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Phone, LogIn, Shield, BookOpen } from "lucide-react";
+import { Home, Search, Phone, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/orquideas-logo.png";
 
 const Navbar = () => {
   const location = useLocation();
-  const { user, isAdmin } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -59,26 +57,6 @@ const Navbar = () => {
                 Contacto
               </Button>
             </Link>
-            {isAdmin && (
-              <Link to="/admin">
-                <Button
-                  variant={isActive("/admin") ? "default" : "ghost"}
-                  size="sm"
-                  className="gap-2"
-                >
-                  <Shield className="h-4 w-4" />
-                  Admin
-                </Button>
-              </Link>
-            )}
-            {!user && (
-              <Link to="/auth">
-                <Button variant="outline" size="sm" className="gap-2">
-                  <LogIn className="h-4 w-4" />
-                  Iniciar Sesión
-                </Button>
-              </Link>
-            )}
           </div>
 
           <div className="md:hidden flex items-center gap-2">
