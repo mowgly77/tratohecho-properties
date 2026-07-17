@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Search, Phone, LogIn, Shield } from "lucide-react";
+import { Home, Search, Phone, LogIn, Shield, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/orquideas-logo.png";
@@ -39,6 +39,16 @@ const Navbar = () => {
                 Propiedades
               </Button>
             </Link>
+            <Link to="/blog">
+              <Button
+                variant={isActive("/blog") ? "default" : "ghost"}
+                size="sm"
+                className="gap-2"
+              >
+                <BookOpen className="h-4 w-4" />
+                Blog
+              </Button>
+            </Link>
             <Link to="/contacto">
               <Button
                 variant={isActive("/contacto") ? "default" : "ghost"}
@@ -75,6 +85,11 @@ const Navbar = () => {
             <Link to="/propiedades">
               <Button variant="ghost" size="icon">
                 <Search className="h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/blog">
+              <Button variant="ghost" size="icon">
+                <BookOpen className="h-5 w-5" />
               </Button>
             </Link>
           </div>
