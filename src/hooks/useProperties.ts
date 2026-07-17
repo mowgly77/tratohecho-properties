@@ -54,8 +54,9 @@ export const useFeaturedProperties = () => {
         .from("properties")
         .select("*")
         .eq("activa", true)
-        .eq("destacada", true)
-        .order("created_at", { ascending: false });
+        .order("destacada", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(6);
 
       if (error) throw error;
       return data as Property[];
