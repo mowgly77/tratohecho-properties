@@ -8,7 +8,6 @@
     <meta name="keywords" content="casas en venta querétaro, departamentos en venta querétaro, inmobiliaria querétaro, propiedades querétaro, grupo inmobiliario orquídeas" />
     <meta name="author" content="Grupo Inmobiliario Orquídeas" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://inmobiliariaorquideas.com/" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -21,9 +20,11 @@
     <meta property="og:description" content="Casas, departamentos y terrenos en venta en Querétaro. Encuentra tu propiedad ideal con Grupo Inmobiliario Orquídeas. Trato directo, asesoría experta." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://inmobiliariaorquideas.com/" />
-    <meta property="og:image" content="https://inmobiliariaorquideas.com/images/67802/casa-venta-lomas-juriquilla-queretaro-01.jpg" />
+    <meta property="og:image" content="https://inmobiliariaorquideas.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="900" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Grupo Inmobiliario Orquídeas — Casas y Departamentos en Querétaro" />
     <meta property="og:locale" content="es_MX" />
     <meta property="og:site_name" content="Grupo Inmobiliario Orquídeas" />
 
@@ -31,7 +32,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Grupo Inmobiliario Orquídeas | Querétaro" />
     <meta name="twitter:description" content="Casas y departamentos en venta en Querétaro. Trato directo, sin intermediarios." />
-    <meta name="twitter:image" content="https://inmobiliariaorquideas.com/images/67802/casa-venta-lomas-juriquilla-queretaro-01.jpg" />
+    <meta name="twitter:image" content="https://inmobiliariaorquideas.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Grupo Inmobiliario Orquídeas — Casas y Departamentos en Querétaro" />
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M5H091JQS3"></script>
@@ -44,7 +46,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Carga no bloqueante de fuentes -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
 
     <script type="application/ld+json">
       {
@@ -55,7 +60,6 @@
         "url": "https://inmobiliariaorquideas.com/",
         "logo": "https://inmobiliariaorquideas.com/apple-touch-icon.png",
         "telephone": "+525583672523",
-        "email": "robertoe.alcantara@gmail.com",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Querétaro",
