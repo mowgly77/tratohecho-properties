@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { MOSTRAR_TODAS } from "@/lib/config";
 
 export interface Property {
   id: string;
@@ -25,9 +26,16 @@ export interface Property {
   amenidades: string[] | null;
   con_escritura: string | null;
   posesion_fisica: string | null;
+  vendida?: boolean | null;
   created_at: string;
   updated_at: string;
 }
+
+/** Aplica el flag MOSTRAR_TODAS: si está apagado, oculta las propiedades sin fotos. */
+const aplicarFlagFotos = (props: Property[]) =>
+  MOSTRAR_TODAS
+    ? props
+    : props.filter((p) => Array.isArray(p.imagenes) && p.imagenes.length > 0);
 
 export const useProperties = () => {
   return useQuery({
@@ -41,7 +49,7 @@ export const useProperties = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data as Property[];
+      return aplicarFlagFotos(data as Property[]);
     },
   });
 };
@@ -55,11 +63,14 @@ export const useFeaturedProperties = () => {
         .select("*")
         .eq("activa", true)
         .order("destacada", { ascending: false })
-        .order("created_at", { ascending: false })
-        .limit(6);
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data as Property[];
+      // En el Home, primero las que tienen fotos (sort estable: respeta destacada/fecha)
+      const tieneFotos = (p: Property) => (p.imagenes?.length ?? 0) > 0 ? 0 : 1;
+      return aplicarFlagFotos(data as Property[])
+        .sort((a, b) => tieneFotos(a) - tieneFotos(b))
+        .slice(0, 6);
     },
   });
 };
@@ -123,7 +134,7 @@ export const useFilteredProperties = (filters: PropertyFilters) => {
       const { data, error } = await query;
 
       if (error) throw error;
-      return data as Property[];
+      return aplicarFlagFotos(data as Property[]);
     },
   });
 };
