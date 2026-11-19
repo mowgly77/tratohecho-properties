@@ -20,7 +20,7 @@ const Home = () => {
     <div className="min-h-screen flex flex-col">
       <SEO
         title="Casas en Venta Querétaro | Inmobiliaria Orquídeas QRO"
-        description="Casas y departamentos en venta en Querétaro. Asesoría experta, trato directo y las mejores propiedades en Los Candiles, Juriquilla y más."
+        description="Casas y departamentos en venta en Querétaro. Asesoría experta, trato directo y las mejores propiedades en Los Candiles, Los Sauces y más."
         path="/"
       />
       <Navbar />
